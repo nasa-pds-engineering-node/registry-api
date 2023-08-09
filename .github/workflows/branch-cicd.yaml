@@ -90,17 +90,12 @@ jobs:
                     tags: nasapds/registry-api-service:latest
             -
                 name: ∫ Integration tests … hold onto your hats, pardners
-                # Unforuntately, the int-registry-batch-loader profile also 
                 run: |
                     git clone --quiet https://github.com/NASA-PDS/registry.git
                     cd registry/docker/certs
                     ./generate-certs.sh
                     cd ..
-                    echo "Current images"
-                    docker image ls
-                    echo "Inspecting my expected image"
-                    docker image inspect nasapds/registry-api-service:latest
-                    echo "Starting it up"
+                    docker image inspect nasapds/registry-api-service:latest >/dev/null
                     docker compose \
                         --ansi never --profile int-registry-batch-loader --project-name registry \
                         up --detach --quiet-pull

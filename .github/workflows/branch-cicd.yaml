@@ -64,10 +64,10 @@ jobs:
                     java-version: ${{matrix.java-version}}
             -
                 name: 🩺 Unit tests
-                run: mvn test
+                run: mvn --quiet test
             -
                 name: 📦 Package construction
-                run: mvn package
+                run: mvn --quiet package
             -
                 name: 🫙 Jar File Determination
                 id: jarrer
@@ -85,19 +85,19 @@ jobs:
                     push: false
                     tags: nasapds/registry-api-service:latest
             -
-                name: ∫ Integration tests … hold onto your hatr
+                name: ∫ Integration tests … hold onto your hats, pardners
+                # Unforuntately, the int-registry-batch-loader profile also 
                 run: |
-                    git clone https://github.com/NASA-PDS/registry.git
+                    git clone --quiet https://github.com/NASA-PDS/registry.git
                     cd registry/docker/certs
                     ./generate-certs.sh
                     cd ..
                     docker compose --ansi never --profile int-registry-batch-loader --project-name registry up --detach
-                    sleep 300
-                    docker-compose \
+                    docker compose \
                         --ansi never \
                         --profile int-registry-batch-loader \
                         --project-name registry \
-                        run --rm --no-TTY reg-api-integration-test </dev/null
+                        run --rm --no-TTY reg-api-integration-test-with-wait
 
 ...
 

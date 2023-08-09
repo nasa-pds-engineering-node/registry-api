@@ -85,7 +85,7 @@ jobs:
                     push: false
                     tags: nasapds/registry-api-service:latest
             -
-                name: ∫ Integration tests
+                name: ∫ Integration tests … hold onto your hatr
                 run: |
                     git clone https://github.com/NASA-PDS/registry.git
                     cd registry/docker/certs

@@ -86,6 +86,7 @@ jobs:
                     file: ./docker/Dockerfile
                     build-args: api_jar=${{steps.jarrer.outputs.jar_file}}
                     push: false
+                    load: true
                     tags: nasapds/registry-api-service:latest
             -
                 name: ∫ Integration tests … hold onto your hats, pardners
